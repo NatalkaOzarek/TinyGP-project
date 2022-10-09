@@ -1,6 +1,6 @@
 public class Main {
     public static void main(String[] args) {
-        String fname = "problem.dat";
+        String fname = "xmxp2.dat.txt";
         long s = -1;
 
         if ( args.length == 2 ) {

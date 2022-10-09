@@ -58,14 +58,19 @@ public class TinyGP {
         }
     }
 
-    int traverse( char [] buffer, int buffercount ) {
-        if ( buffer[buffercount] < FITNESS_SET_START)
-            return( ++buffercount );
+    int traverse( char [] buffer, int bufferCount ) {
+        if ( buffer[bufferCount] < FITNESS_SET_START)
+            return( ++bufferCount );
 
-        return switch (buffer[buffercount]) {
-            case ADD, SUB, MUL, DIV -> (traverse(buffer, traverse(buffer, ++buffercount)));
-            default -> 0;
-        };
+        switch (buffer[bufferCount]) {
+            case ADD:
+            case SUB:
+            case MUL:
+            case DIV:
+                return (traverse(buffer, traverse(buffer, ++bufferCount)));
+            default:
+                return 0;
+        }
     }
 
     void setup_fitness(String fname) {
@@ -140,14 +145,18 @@ public class TinyGP {
         else  {
             prim = (char) (rd.nextInt(FITNESS_SET_END - FITNESS_SET_START + 1) + FITNESS_SET_START);
             switch (prim) {
-                case ADD, SUB, MUL, DIV -> {
+                case ADD:
+                case SUB:
+                case MUL:
+                case DIV:
                     buffer[pos] = prim;
                     one_child = grow(buffer, pos + 1, max, depth - 1);
                     if (one_child < 0)
                         return (-1);
                     return (grow(buffer, one_child, max, depth - 1));
-                }
-                default -> { return 0; }
+
+                default:
+                    return 0;
             }
         }
     }
@@ -162,26 +171,26 @@ public class TinyGP {
             return( ++bufferCounter );
         }
         switch (buffer[bufferCounter]) {
-            case ADD -> {
+            case ADD:
                 System.out.print("(");
                 a1 = print_indiv(buffer, ++bufferCounter);
                 System.out.print(" + ");
-            }
-            case SUB -> {
+                break;
+            case SUB:
                 System.out.print("(");
                 a1 = print_indiv(buffer, ++bufferCounter);
                 System.out.print(" - ");
-            }
-            case MUL -> {
+                break;
+            case MUL:
                 System.out.print("(");
                 a1 = print_indiv(buffer, ++bufferCounter);
                 System.out.print(" * ");
-            }
-            case DIV -> {
+                break;
+            case DIV:
                 System.out.print("(");
                 a1 = print_indiv(buffer, ++bufferCounter);
                 System.out.print(" / ");
-            }
+                break;
         }
         a2=print_indiv( buffer, a1 );
         System.out.print( ")");
@@ -309,9 +318,13 @@ public class TinyGP {
                     parentCopy[mutsite] = (char) rd.nextInt(varNumber + randomNumber);
                 else
                     switch (parentCopy[mutsite]) {
-                        case ADD, SUB, MUL, DIV -> parentCopy[mutsite] =
-                                (char) (rd.nextInt(FITNESS_SET_END - FITNESS_SET_START + 1)
-                                        + FITNESS_SET_START);
+                        case ADD:
+                        case SUB:
+                        case MUL:
+                        case DIV:
+                            parentCopy[mutsite] =
+                                    (char) (rd.nextInt(FITNESS_SET_END - FITNESS_SET_START + 1)
+                                            + FITNESS_SET_START);
                     }
             }
         }
