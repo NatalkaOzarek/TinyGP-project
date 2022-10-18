@@ -12,6 +12,7 @@ public class TinyGP {
     double [] fitness;
     char [][] pop;
     static Random rd = new Random();
+    DataToFileWriter writer = new DataToFileWriter();
     final int
         ADD = 110,
             SUB = 111,
@@ -100,6 +101,7 @@ public class TinyGP {
                     targets[i][j] = Double.parseDouble(tokens.nextToken().trim());
                 }
             }
+            writer.copyTargets(targets);
             in.close();
         }
         catch(FileNotFoundException e) {
