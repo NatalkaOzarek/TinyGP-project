@@ -1,6 +1,6 @@
 public class Main {
     public static void main(String[] args) {
-        String fname = "examples/first2.txt";
+        String fname = "examples/fifth1.txt";
         long s = -1;
 
         if ( args.length == 2 ) {
