@@ -1,3 +1,5 @@
+package DataGenerator.src;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,7 +19,7 @@ public class DataToFileWriter {
     private String filename;
     private String data;
 
-    void copyTargets(double[][] targets) throws IOException {
+    public void copyTargets(double[][] targets) throws IOException {
         this.targets = targets;
     }
 

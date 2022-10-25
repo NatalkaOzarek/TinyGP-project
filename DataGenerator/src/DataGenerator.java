@@ -1,3 +1,5 @@
+package DataGenerator.src;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,7 +29,6 @@ class DataGenerator {
 //                    x + 2*y;
 //                    Math.sin(x/2) + 2*Math.cos(x);
 //                    Math.pow(x, 2) + 3*x*y - 7*y + 1;
-
 //            }
 //        }
     }

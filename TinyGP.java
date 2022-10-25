@@ -5,8 +5,11 @@
  *
  */
 
+import DataGenerator.src.DataToFileWriter;
+
 import java.util.*;
 import java.io.*;
+import java.lang.Math;
 
 public class TinyGP {
     double [] fitness;
@@ -18,6 +21,8 @@ public class TinyGP {
             SUB = 111,
             MUL = 112,
             DIV = 113,
+            SIN = 114,
+            COS = 115,
             FITNESS_SET_START = ADD,
             FITNESS_SET_END = DIV;
     double [] x = new double[FITNESS_SET_START];
@@ -47,6 +52,10 @@ public class TinyGP {
             case ADD : return( run() + run() );
             case SUB : return( run() - run() );
             case MUL : return( run() * run() );
+            case SIN:  {double num = run();
+                        return Math.sin(num);}
+            case COS: {double num = run();
+                        return Math.cos(num);}
             case DIV : {
                            double num = run(), den = run();
                            if ( Math.abs( den ) <= 0.001 )
@@ -54,10 +63,12 @@ public class TinyGP {
                            else
                                return( num / den );
                        }
+
             default:
                 return 0.0;
         }
     }
+
 
     int traverse( char [] buffer, int bufferCount ) {
         if ( buffer[bufferCount] < FITNESS_SET_START)
@@ -68,6 +79,8 @@ public class TinyGP {
             case SUB:
             case MUL:
             case DIV:
+            case SIN:
+            case COS:
                 return (traverse(buffer, traverse(buffer, ++bufferCount)));
             default:
                 return 0;
@@ -109,6 +122,7 @@ public class TinyGP {
             System.exit(0);
         }
         catch(Exception e ) {
+
             System.out.println("ERROR: Incorrect data format");
             System.exit(0);
         }
@@ -151,6 +165,8 @@ public class TinyGP {
                 case SUB:
                 case MUL:
                 case DIV:
+                case SIN:
+                case COS:
                     buffer[pos] = prim;
                     one_child = grow(buffer, pos + 1, max, depth - 1);
                     if (one_child < 0)
@@ -192,6 +208,16 @@ public class TinyGP {
                 System.out.print("(");
                 a1 = print_indiv(buffer, ++bufferCounter);
                 System.out.print(" / ");
+                break;
+            case SIN:
+                System.out.print("(sin(");
+                a1 = print_indiv(buffer, ++bufferCounter);
+                System.out.print(" )");
+                break;
+            case COS:
+                System.out.print("(cos(");
+                a1 = print_indiv(buffer, ++bufferCounter);
+                System.out.print(" )");
                 break;
         }
         a2=print_indiv( buffer, a1 );
@@ -324,6 +350,9 @@ public class TinyGP {
                         case SUB:
                         case MUL:
                         case DIV:
+                        case SIN:
+                        case COS:
+
                             parentCopy[mutsite] =
                                     (char) (rd.nextInt(FITNESS_SET_END - FITNESS_SET_START + 1)
                                             + FITNESS_SET_START);
