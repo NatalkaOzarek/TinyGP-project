@@ -24,7 +24,7 @@ public class TinyGP {
             SIN = 114,
             COS = 115,
             FITNESS_SET_START = ADD,
-            FITNESS_SET_END = DIV;
+            FITNESS_SET_END = COS;
     double [] x = new double[FITNESS_SET_START];
     double minRandom, maxRandom;
     char [] program;
@@ -63,7 +63,6 @@ public class TinyGP {
                            else
                                return( num / den );
                        }
-
             default:
                 return 0.0;
         }
